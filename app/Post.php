@@ -14,7 +14,7 @@ class Post extends Model
      *
      * @return array
      */
-    public function sluggable(): array
+    public function sluggable()
     {
         return [
             'slug' => [
@@ -23,5 +23,16 @@ class Post extends Model
             ]
         ];
     }
+    public function user()
+    {
+        //un post pertenece a un usuario
+        return $this->belongsTo(User::class);
+    }
+    //la sgt f es para extraer solo 140 caract de la col body
+    //para cuando usemos $post->get_excerpt
+    public function getGetExcerptAttribute()
+    {
+        return substr($this->body, 0, 140);
+    }
 }
-}
+
